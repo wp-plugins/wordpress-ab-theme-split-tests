@@ -29,6 +29,16 @@ For more info see the [detailed instructions](http://www.leewillis.co.uk/how-to-
 
 No - this lets you split test whole themes rather than content changes, e.g. navigation on the let versus navigation on the right
 
+= How can I tell if the tracking is taking place? =
+
+Check the source of your webpage for a line that looks like this:
+
+`<script type="text/javascript">pageTracker._setVar("irresistible");</script>`
+
+= The tracking line isn't being added to my page - why not? =
+
+Make sure all of your themes call wp_footer() in the footer
+
 == Screenshots ==
 
 1. Screenshot showing wordpress settings screen
