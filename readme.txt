@@ -3,8 +3,8 @@ Contributors: leewillis77
 Donate link: http://www.leewillis.co.uk/wordpress-plugins/
 Tags: split testing, a/b testing
 Requires at least: 2.8.1
-Tested up to: 2.8.5
-Stable tag: 0.1
+Tested up to: 2.9
+Stable tag: 0.2
 
 Split test your wordpress theme, and track test using Google Analytics user defined values.
 
