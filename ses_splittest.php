@@ -4,7 +4,7 @@ Plugin Name: SES Theme Split Test
 Plugin URI: http://www.leewillis.co.uk/wordpress-plugins/
 Description: Split test your wordpress theme, and track test using Google Analytics user defined values. Based on an idea by David Dellanave (http://www.dellanave.com/)
 Author: Lee Willis
-Version: 0.1
+Version: 0.2
 Author URI: http://www.leewillis.co.uk
 */
 
