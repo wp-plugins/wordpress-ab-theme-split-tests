@@ -4,7 +4,7 @@ Donate link: http://www.leewillis.co.uk/wordpress-plugins/
 Tags: split testing, a/b testing
 Requires at least: 2.8.1
 Tested up to: 2.9
-Stable tag: 0.2
+Stable tag: 0.3
 
 Split test your wordpress theme, and track test using Google Analytics user defined values.
 
@@ -40,12 +40,22 @@ Check the source of your webpage for a line that looks like this:
 
 Make sure all of your themes call wp_footer() in the footer
 
+= Does this work with the new-style Google Analytics code =
+
+Yes, it works with either old-style (pageTracker) or new-style (_gaq) analytics code
+
 == Screenshots ==
 
 1. Screenshot showing wordpress settings screen
 2. Screenshot showing resulting Google Analytics data
 
 == Changelog ==
+
+= 0.3 =
+* Support new-style google analytics tracking (Thanks to <a href="http://www.viadat.com">Moyo</a>)
+
+= 0.2 =
+* Update Wordpress compatability tag
 
 = 0.1 =
 * Initial Release
