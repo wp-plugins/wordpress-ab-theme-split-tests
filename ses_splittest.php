@@ -4,7 +4,7 @@ Plugin Name: SES Theme Split Test
 Plugin URI: http://www.leewillis.co.uk/wordpress-plugins/
 Description: Split test your wordpress theme, and track test using Google Analytics user defined values. Based on an idea by David Dellanave (http://www.dellanave.com/)
 Author: Lee Willis
-Version: 0.1
+Version: 0.3
 Author URI: http://www.leewillis.co.uk
 */
 
@@ -120,11 +120,18 @@ class ses_splittest{
 	}
 
 	function output_themesetvar() {
-		if ($this->splittest != "") {
-			echo '<script type="text/javascript">pageTracker._setVar("';
-			echo htmlentities($this->splittest);
-			echo '");</script>';
-		}
+		if ($this->splittest != "") : ?>
+			<script type="text/javascript">
+				try {
+					_gaq.push(["_setVar", "<?php echo htmlentities($this->splittest); ?>"]);
+                        	} catch(err) {
+					try {
+						pageTracker._setVar("<?php echo htmlentities($this->splittest); ?>");
+					} catch (err2) {}
+				}
+			</script>
+		<?php
+		endif;
 	}
 }
 
