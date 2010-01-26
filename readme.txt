@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: leewillis77
-Donate link: http://www.leewillis.co.uk/wordpress-plugins/
+Donate link: http://www.leewillis.co.uk/wordpress-plugins/?utm_source=wordpress&utm_medium=www&utm_campaign=wordpress-ab-theme-split-tests
 Tags: split testing, a/b testing
 Requires at least: 2.8.1
 Tested up to: 2.9
