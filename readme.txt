@@ -1,15 +1,18 @@
 === Plugin Name ===
 Contributors: leewillis77
+Donate link: http://www.leewillis.co.uk/wordpress-plugins/?utm_source=wordpress&utm_medium=www&utm_campaign=wordpress-ab-theme-split-tests
 Tags: split testing, a/b testing
 Requires at least: 2.8.1
-Tested up to: 2.8.5
-Stable tag: 0.1
+Tested up to: 2.9
+Stable tag: 1.0
 
 Split test your wordpress theme, and track test using Google Analytics user defined values.
 
 == Description ==
 
 This plugin lets you set up two different templates with differences that you think might increase conversions, serve these different templates up to users, and track their activity using custom segments in Google Analytics.
+
+Alternatively you can use it to "choose" a particular theme by setting a URL parameter so you can experiment using different themes yourself (Particularly useful when developing your "split" themes!
 
 == Installation ==
 
@@ -25,6 +28,14 @@ For more info see the [detailed instructions](http://www.leewillis.co.uk/how-to-
 
 == Frequently Asked Questions ==
 
+= How do I see my site with a particular theme? =
+
+Just go to http://www.yoursite.com/?wp_splittest_force=<themefolder>
+
+= I forced myself to get a fixed theme - how do I swap back? =
+
+Simple - go to http://www.yoursite.com/?wp_splittest_reset
+
 = Isn't this the same as Google Website Optimizer? =
 
 No - this lets you split test whole themes rather than content changes, e.g. navigation on the let versus navigation on the right
@@ -39,12 +50,22 @@ Check the source of your webpage for a line that looks like this:
 
 Make sure all of your themes call wp_footer() in the footer
 
+= Does this work with the new-style Google Analytics code =
+
+Yes, it works with either old-style (pageTracker) or new-style (_gaq) analytics code
+
 == Screenshots ==
 
 1. Screenshot showing wordpress settings screen
 2. Screenshot showing resulting Google Analytics data
 
 == Changelog ==
+
+= 0.3 =
+* Support new-style google analytics tracking (Thanks to <a href="http://www.viadat.com">Moyo</a>)
+
+= 0.2 =
+* Update Wordpress compatability tag
 
 = 0.1 =
 * Initial Release
