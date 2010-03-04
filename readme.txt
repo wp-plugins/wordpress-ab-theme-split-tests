@@ -30,7 +30,7 @@ For more info see the [detailed instructions](http://www.leewillis.co.uk/how-to-
 
 = How do I see my site with a particular theme? =
 
-Just go to http://www.yoursite.com/?wp_splittest_force=&lt;themefolder&gt;
+Just go to http://www.yoursite.com/?wp_splittest_force=themefolder
 
 = I forced myself to get a fixed theme - how do I swap back? =
 
