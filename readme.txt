@@ -4,13 +4,15 @@ Donate link: http://www.leewillis.co.uk/wordpress-plugins/?utm_source=wordpress&
 Tags: split testing, a/b testing
 Requires at least: 2.8.1
 Tested up to: 2.9
-Stable tag: 0.3
+Stable tag: 1.0
 
 Split test your wordpress theme, and track test using Google Analytics user defined values.
 
 == Description ==
 
 This plugin lets you set up two different templates with differences that you think might increase conversions, serve these different templates up to users, and track their activity using custom segments in Google Analytics.
+
+Alternatively you can use it to "choose" a particular theme by setting a URL parameter so you can experiment using different themes yourself (Particularly useful when developing your "split" themes!
 
 == Installation ==
 
@@ -25,6 +27,14 @@ This plugin lets you set up two different templates with differences that you th
 For more info see the [detailed instructions](http://www.leewillis.co.uk/how-to-split-test-wordpress-themes/)
 
 == Frequently Asked Questions ==
+
+= How do I see my site with a particular theme? =
+
+Just go to http://www.yoursite.com/?wp_splittest_force=<themefolder>
+
+= I forced myself to get a fixed theme - how do I swap back? =
+
+Simple - go to http://www.yoursite.com/?wp_splittest_reset
 
 = Isn't this the same as Google Website Optimizer? =
 

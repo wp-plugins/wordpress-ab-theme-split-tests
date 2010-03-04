@@ -4,7 +4,7 @@ Plugin Name: SES Theme Split Test
 Plugin URI: http://www.leewillis.co.uk/wordpress-plugins/?utm_source=wordpress&utm_medium=www&utm_campaign=wordpress-ab-theme-split-tests
 Description: Split test your wordpress theme, and track test using Google Analytics user defined values. Based on an idea by David Dellanave (http://www.dellanave.com/)
 Author: Lee Willis
-Version: 0.3
+Version: 1.0
 Author URI: http://www.leewillis.co.uk/?utm_source=wordpress&utm_medium=www&utm_campaign=wordpress-ab-theme-split-tests
 */
 
@@ -97,8 +97,21 @@ class ses_splittest{
 			$theme = $ses_theme_list[$id];
 		}
 
-		setcookie("wp_splittest1",$theme,time()+(60*60*24*30),'/');
-		$this->splittest = $theme;		
+		if (isset($_GET['wp_splittest_reset'])) {
+			$reset = TRUE;
+			setcookie("wp_splittest_force", "", time()-86400);
+		}
+		// Override if a "force" cookie is set
+		if (isset($_GET['wp_splittest_force']) && $_GET['wp_splittest_force'] != "" && !$reset) {
+			setcookie("wp_splittest_force",$_GET['wp_splittest_force'],time()+(60*60*24*30),'/');
+			$this->splittest = $_GET['wp_splittest_force'];		
+		} else if (isset($_COOKIE['wp_splittest_force']) && $_COOKIE['wp_splittest_force'] != "" && !$reset) {
+			setcookie("wp_splittest_force",$_COOKIE['wp_splittest_force'],time()+(60*60*24*30),'/');
+			$this->splittest = $_COOKIE['wp_splittest_force'];		
+		} else {
+			setcookie("wp_splittest1",$theme,time()+(60*60*24*30),'/');
+			$this->splittest = $theme;		
+		}
 
 
 	}
