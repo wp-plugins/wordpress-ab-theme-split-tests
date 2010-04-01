@@ -74,9 +74,15 @@ class ses_splittest{
 	function ses_splittest(){
 		$this->splittest = false;
 		add_action('plugins_loaded',array(&$this,'detectsplittest'));
-		add_action('wp_footer',array(&$this, 'output_themesetvar'),99);
 		add_filter('stylesheet',array(&$this,'get_stylesheet'));
 		add_filter('template',array(&$this,'get_template'));
+		if (class_exists('GA_Filter') && method_exists('GA_Filter','spool_analytics')) {
+			// Google Analytics For Wordpress
+			add_filter('yoast-ga-custom-vars', array(&$this, 'gafw_setvar'));
+		} else {
+			add_action('wp_footer',array(&$this, 'output_themesetvar'),99);
+		}
+
 	}
 
 	function detectsplittest($query){
@@ -130,6 +136,20 @@ class ses_splittest{
 		} else {
 			return $template;
 		}
+	}
+
+	// Support for Google Analytics For Wordpress
+	function gafw_setvar($push) {
+		if ($this->splittest != "") {
+			$idx=1;
+			foreach($push as $item) {
+				if (stristr($item,'setCustomVar'))
+					$idx++;
+			}
+			$push[] = "'_setCustomVar',$idx,'SplitTestTheme','".$this->splittest."'";
+		}
+		$customVarIdx++;
+		return $push;
 	}
 
 	function output_themesetvar() {
