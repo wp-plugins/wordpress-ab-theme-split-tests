@@ -4,7 +4,7 @@ Donate link: http://www.leewillis.co.uk/wordpress-plugins/?utm_source=wordpress&
 Tags: split testing, a/b testing
 Requires at least: 2.8.1
 Tested up to: 2.9
-Stable tag: 1.0
+Stable tag: 1.1
 
 Split test your wordpress theme, and track test using Google Analytics user defined values.
 
@@ -60,6 +60,9 @@ Yes, it works with either old-style (pageTracker) or new-style (_gaq) analytics 
 2. Screenshot showing resulting Google Analytics data
 
 == Changelog ==
+
+= 1.1 =
+* Fixes for PHP installs where short_open_tag is off
 
 = 0.3 =
 * Support new-style google analytics tracking (Thanks to <a href="http://www.viadat.com">Moyo</a>)

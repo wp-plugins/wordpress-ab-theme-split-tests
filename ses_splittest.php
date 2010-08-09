@@ -1,10 +1,10 @@
-<?
+<?php
 /*
 Plugin Name: SES Theme Split Test
 Plugin URI: http://www.leewillis.co.uk/wordpress-plugins/?utm_source=wordpress&utm_medium=www&utm_campaign=wordpress-ab-theme-split-tests
 Description: Split test your wordpress theme, and track test using Google Analytics user defined values. Based on an idea by David Dellanave (http://www.dellanave.com/)
 Author: Lee Willis
-Version: 1.0
+Version: 1.1
 Author URI: http://www.leewillis.co.uk/?utm_source=wordpress&utm_medium=www&utm_campaign=wordpress-ab-theme-split-tests
 */
 
@@ -65,7 +65,7 @@ function ses_splittest_options() {
 			<span class="submit" style="border: 0;"><input type="submit" name="submit" value="<?php _e("Save Settings"); ?>" /></span>
 		</form>
 	</div>
-<?
+<?php
 }
 
 class ses_splittest{
