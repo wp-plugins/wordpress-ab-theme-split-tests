@@ -9,7 +9,7 @@ Author URI: http://www.leewillis.co.uk/?utm_source=wordpress&utm_medium=www&utm_
 */
 
 function ses_splittest_menu() {
-	add_options_page('SES Theme Split Test Settings', 'SES Theme Split Test', 10, basename(__FILE__), 'ses_splittest_options');
+	add_options_page('SES Theme Split Test Settings', 'SES Theme Split Test', 'manage_options', basename(__FILE__), 'ses_splittest_options');
 }
 add_action("admin_menu", "ses_splittest_menu");
 
@@ -86,14 +86,15 @@ class ses_splittest{
 	}
 
 	function detectsplittest($query){
+
 		
 		$ses_theme_list = get_option("ses_splittest_themes");
 
 		if (count($ses_theme_list) < 2) {
 			return;
 		}
-		
-		if($_COOKIE['wp_splittest1']) {
+
+		if( isset ( $_COOKIE['wp_splittest1'] ) ) {
 			$theme = $_COOKIE['wp_splittest1'];
 		}
 
@@ -123,6 +124,7 @@ class ses_splittest{
 	}
 	
 	function get_stylesheet($stylesheet) {
+
 		if ($this->splittest != "") {
 			return $this->splittest;
 		} else {
@@ -131,6 +133,7 @@ class ses_splittest{
 	}
 	
 	function get_template($template) {
+
 		if ($this->splittest != "") {
 			return $this->splittest;
 		} else {
@@ -140,6 +143,7 @@ class ses_splittest{
 
 	// Support for Google Analytics For Wordpress
 	function gafw_setvar($push) {
+
 		if ($this->splittest != "") {
 			$idx=1;
 			foreach($push as $item) {
