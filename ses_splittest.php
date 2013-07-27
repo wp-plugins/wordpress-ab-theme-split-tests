@@ -20,12 +20,8 @@ function ses_splittest_options() {
                 check_admin_referer( 'ses-splittest-updatesettings' );
 
 		if ( $_POST['sesthemes'] != '' ) {
-			foreach ( array_keys( $_POST['sesthemes'] ) as $key ) {
-				$ses_theme_list[] = $key;
-			}
+			update_option( 'ses_splittest_themes', $_POST['sesthemes'] );
 		}
-
-		update_option( 'ses_splittest_themes', $ses_theme_list );
 
 		echo '<div id="message" class="updated"><p>'.__( 'Settings updated.' ).'</p></div>';
 	}
@@ -51,9 +47,8 @@ function ses_splittest_options() {
 					<th style="vertical-align:top;width:35%;">
 						<?php echo esc_html( $theme['Title'] ); ?>
 					</th>
-					<td style="vertical-align:top;"><input type="checkbox" name="sesthemes[<?php echo htmlentities( $theme['Template'] ); ?>]" value="<?php echo $theme['name']; ?>" <?php if( $ses_theme_list != '' && in_array( $theme['Template'], $ses_theme_list ) ) echo 'checked'; ?>/></td>
+					<td style="vertical-align:top;"><input type="checkbox" name="sesthemes[<?php echo htmlentities( $theme['Stylesheet'] ); ?>]" value="<?php echo $theme['Template']; ?>" <?php if( $ses_theme_list != '' && in_array( $theme['Stylesheet'], array_keys($ses_theme_list) ) ) echo 'checked'; ?>/></td>
 				</tr>
-
 				<?php
 					}
 
@@ -96,9 +91,11 @@ class ses_splittest {
 		}
 
 		// No cookie, or Theme is no longer part of split test - assign a new one
-		if ( !isset( $theme ) || !in_array( $theme, $ses_theme_list ) ) {
+		if ( !isset( $theme ) || !in_array( $theme, array_keys( $ses_theme_list ) ) ) {
 			$id = rand( 0, count( $ses_theme_list ) -1 );
-			$theme = $ses_theme_list[$id];
+			$stylesheet_list = array_keys( $ses_theme_list );
+			$stylesheet = $stylesheet_list[$id];
+			$theme = array( $stylesheet => $ses_theme_list[$stylesheet] );
 		}
 
 		if ( isset( $_GET['wp_splittest_reset'] ) ) {
@@ -108,21 +105,20 @@ class ses_splittest {
 		// Override if a "force" cookie is set
 		if ( isset( $_GET['wp_splittest_force'] ) && $_GET['wp_splittest_force'] != '' && !$reset ) {
 			setcookie( 'wp_splittest_force', $_GET['wp_splittest_force'], time() + (60 * 60 * 24 * 30), '/' );
-			$this->splittest = $_GET['wp_splittest_force'];
+			$this->splittest = array( $_GET['wp_splittest_force'] => $ses_theme_list[$_GET['wp_splittest_force']] );
 		} else if ( isset( $_COOKIE['wp_splittest_force'] ) && $_COOKIE['wp_splittest_force'] != '' && !$reset ) {
 			setcookie( 'wp_splittest_force', $_COOKIE['wp_splittest_force'], time() + (60 * 60 * 24 * 30),'/' );
-			$this->splittest = $_COOKIE['wp_splittest_force'];
+			$this->splittest = array( $_COOKIE['wp_splittest_force'] => $ses_theme_list[$_GET['wp_splittest_force']] );
 		} else {
 			setcookie( 'wp_splittest1', $theme, time() + (60 * 60 * 24 * 30),'/' );
 			$this->splittest = $theme;
 		}
 
-
 	}
 
 	function get_stylesheet( $stylesheet ) {
-		if ( $this->splittest != '' ) {
-			return $this->splittest;
+		if ( ! empty( $this->splittest ) ) {
+			return key($this->splittest);
 		} else {
 			return $stylesheet;
 		}
@@ -130,34 +126,36 @@ class ses_splittest {
 
 	function get_template( $template ) {
 		if ( $this->splittest != '' ) {
-			return $this->splittest;
+			return current($this->splittest);
 		} else {
 			return $template;
 		}
 	}
 
-	// Support for Google Analytics For Wordpress
+	// Support for Google Analytics For WordPress
 	function gafw_setvar( $push ) {
-		if ( $this->splittest != '' ) {
+		if ( !empty( $this->splittest ) ) {
+			reset( $this->splittest );
 			$idx = 1;
 			foreach ( $push as $item ) {
 				if ( stristr( $item, 'setCustomVar' ) )
 					$idx++;
 			}
-			$push[] = "'_setCustomVar',$idx,'SplitTestTheme','".$this->splittest."'";
+			$push[] = "'_setCustomVar',$idx,'SplitTestTheme','".key($this->splittest)."'";
 		}
 		$customVarIdx++;
 		return $push;
 	}
 
 	function output_themesetvar() {
-		if ( $this->splittest != '' ) : ?>
+		if ( !empty( $this->splittest ) ) :
+			reset( $this->splittest ); ?>
 			<script type="text/javascript">
 				try {
-					_gaq.push(["_setVar", "<?php echo htmlentities($this->splittest); ?>"]);
+					_gaq.push(["_setVar", "<?php echo htmlentities( key( $this->splittest ) ); ?>"]);
                         	} catch(err) {
 					try {
-						pageTracker._setVar("<?php echo htmlentities($this->splittest); ?>");
+						pageTracker._setVar("<?php echo htmlentities( key( $this->splittest ) ); ?>");
 					} catch (err2) {}
 				}
 			</script>
