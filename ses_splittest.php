@@ -87,21 +87,21 @@ class ses_splittest {
 		}
 
 		if( $_COOKIE['wp_splittest1'] ) {
-			$theme = $_COOKIE['wp_splittest1'];
+			$stylesheet = $_COOKIE['wp_splittest1'];
 		}
 
 		// No cookie, or Theme is no longer part of split test - assign a new one
-		if ( !isset( $theme ) || !in_array( $theme, array_keys( $ses_theme_list ) ) ) {
+		if ( !isset( $stylesheet ) || !in_array( $stylesheet, array_keys( $ses_theme_list ) ) ) {
 			$id = rand( 0, count( $ses_theme_list ) -1 );
 			$stylesheet_list = array_keys( $ses_theme_list );
 			$stylesheet = $stylesheet_list[$id];
-			$theme = array( $stylesheet => $ses_theme_list[$stylesheet] );
 		}
 
 		if ( isset( $_GET['wp_splittest_reset'] ) ) {
 			$reset = TRUE;
 			setcookie( 'wp_splittest_force', '', time()-86400 );
 		}
+
 		// Override if a "force" cookie is set
 		if ( isset( $_GET['wp_splittest_force'] ) && $_GET['wp_splittest_force'] != '' && !$reset ) {
 			setcookie( 'wp_splittest_force', $_GET['wp_splittest_force'], time() + (60 * 60 * 24 * 30), '/' );
@@ -110,8 +110,8 @@ class ses_splittest {
 			setcookie( 'wp_splittest_force', $_COOKIE['wp_splittest_force'], time() + (60 * 60 * 24 * 30),'/' );
 			$this->splittest = array( $_COOKIE['wp_splittest_force'] => $ses_theme_list[$_GET['wp_splittest_force']] );
 		} else {
-			setcookie( 'wp_splittest1', $theme, time() + (60 * 60 * 24 * 30),'/' );
-			$this->splittest = array( $theme => $ses_theme_list[$theme] );
+			setcookie( 'wp_splittest1', $stylesheet, time() + (60 * 60 * 24 * 30),'/' );
+			$this->splittest = array( $stylesheet => $ses_theme_list[$stylesheet] );
 		}
 
 	}
